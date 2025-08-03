@@ -1,16 +1,18 @@
 const nodemailer = require('nodemailer');
+require('dotenv').config();
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'mohammedsharukhp@gmail.com',
-    pass: 'uhro zywc snvw mvpf' // Use App Password, NOT your actual password
+    user: process.env.EMAIL_USER,
+  pass: process.env.EMAIL_PASS // Use App Password, NOT your actual password
   }
 });
 
 const sendNotification = async (email, url, price) => {
   await transporter.sendMail({
-    from: 'Pricepulse <your-email@gmail.com>',
+   from: `Pricepulse <${process.env.EMAIL_USER}>`,
+
     to: email,
     subject: '🔔 Price Dropped!',
     text: `The price dropped to ₹${price} for your tracked item: ${url}`,
