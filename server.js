@@ -3,12 +3,14 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const trackRoute = require('./routes/track');
 const checkPrices = require('./scraper');
+require('dotenv').config();
+
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/pricepulse')
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB connected"))
   .catch(console.error);
 
